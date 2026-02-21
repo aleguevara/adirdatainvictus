@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Due Diligence — Grupo MYA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ── Reset & variables ─────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:      #1B3A5C;
+  --navy-deep: #0F2236;
+  --navy-mid:  #2E5480;
+  --gold:      #C8A84B;
+  --gold-lt:   #E8C96A;
+  --gold-bg:   #FBF5E6;
+  --red:       #C0392B;
+  --red-bg:    #FDECEA;
+  --amber:     #B07D2A;
+  --amber-bg:  #FEF9EC;
+  --green:     #1E7E4A;
+  --green-bg:  #EAF7EE;
+  --gray-10:   #F4F5F7;
+  --gray-20:   #E8EBF0;
+  --gray-40:   #B0B8C4;
+  --gray-60:   #6B7A8D;
+  --text:      #1A2332;
+  --text-lt:   #4A5568;
+  --white:     #FFFFFF;
+
+  --radius:    6px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.05);
+  --shadow-md: 0 4px 16px rgba(0,0,0,.10), 0 2px 6px rgba(0,0,0,.06);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,.14), 0 4px 12px rgba(0,0,0,.08);
+
+  --font-disp: 'Playfair Display', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'DM Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--navy-deep);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── Background texture ────────────────────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 10%, rgba(200,168,75,.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 90%, rgba(46,84,128,.3) 0%, transparent 60%),
+    repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(255,255,255,.015) 80px, rgba(255,255,255,.015) 81px),
+    repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(255,255,255,.015) 80px, rgba(255,255,255,.015) 81px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Layout ────────────────────────────────────────────────────────────── */
+.app {
+  position: relative;
+  z-index: 1;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 20px 80px;
+}
+
+/* ── Header ────────────────────────────────────────────────────────────── */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 0 20px;
+  border-bottom: 1px solid rgba(200,168,75,.2);
+  margin-bottom: 0;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.brand-name {
+  font-family: var(--font-disp);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: .02em;
+}
+.brand-sub {
+  font-size: .7rem;
+  font-weight: 500;
+  color: var(--gold);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.badge-version {
+  background: rgba(200,168,75,.12);
+  border: 1px solid rgba(200,168,75,.3);
+  color: var(--gold-lt);
+  font-family: var(--font-mono);
+  font-size: .65rem;
+  padding: 4px 10px;
+  border-radius: 20px;
+  letter-spacing: .06em;
+}
+
+/* ── Hero block ────────────────────────────────────────────────────────── */
+.hero {
+  padding: 52px 0 36px;
+  text-align: center;
+}
+.hero-eyebrow {
+  display: inline-block;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: rgba(200,168,75,.1);
+  border: 1px solid rgba(200,168,75,.25);
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-family: var(--font-disp);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+.hero h1 span { color: var(--gold); }
+.hero-desc {
+  font-size: .95rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,.6);
+  max-width: 560px;
+  margin: 0 auto 32px;
+}
+
+/* ── Stats row ─────────────────────────────────────────────────────────── */
+.stats-row {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 0;
+}
+.stat {
+  flex: 1;
+  padding: 16px 20px;
+  text-align: center;
+  border-right: 1px solid rgba(255,255,255,.08);
+}
+.stat:last-child { border-right: none; }
+.stat-val {
+  font-family: var(--font-disp);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--gold);
+  display: block;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-lbl {
+  font-size: .68rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.45);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+}
+
+/* ── Progress ──────────────────────────────────────────────────────────── */
+.progress-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(15,34,54,.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(200,168,75,.15);
+  padding: 14px 20px;
+  margin: 0 -20px;
+}
+.progress-inner {
+  max-width: 820px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.progress-label {
+  font-size: .75rem;
+  font-weight: 600;
+  color: var(--gold);
+  white-space: nowrap;
+  letter-spacing: .04em;
+  min-width: 80px;
+}
+.progress-bar-bg {
+  flex: 1;
+  height: 4px;
+  background: rgba(255,255,255,.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--gold-lt));
+  border-radius: 2px;
+  transition: width .4s ease;
+  width: 0%;
+}
+.progress-pct {
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  color: rgba(255,255,255,.5);
+  min-width: 32px;
+  text-align: right;
+}
+
+/* ── Section nav dots ──────────────────────────────────────────────────── */
+.nav-dots {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 28px 0 0;
+}
+.nav-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.15);
+  border: none;
+  cursor: pointer;
+  transition: all .2s;
+  position: relative;
+}
+.nav-dot.active { background: var(--gold); transform: scale(1.3); }
+.nav-dot.done { background: rgba(200,168,75,.4); }
+.nav-dot:hover { background: rgba(200,168,75,.6); }
+
+/* ── Section card ──────────────────────────────────────────────────────── */
+.section-card {
+  background: var(--white);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  margin-top: 24px;
+  display: none;
+  animation: slideIn .3s ease;
+}
+.section-card.active { display: block; }
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Section header ────────────────────────────────────────────────────── */
+.section-head {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+  padding: 28px 32px 24px;
+  position: relative;
+  overflow: hidden;
+}
+.section-head::after {
+  content: '';
+  position: absolute;
+  right: -20px; top: -20px;
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  background: rgba(200,168,75,.06);
+  border: 1px solid rgba(200,168,75,.1);
+}
+.section-num {
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  font-weight: 500;
+  color: var(--gold);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.section-title {
+  font-family: var(--font-disp);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+.section-icon {
+  position: absolute;
+  right: 32px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 2.4rem;
+  opacity: .35;
+}
+.section-note {
+  font-size: .82rem;
+  line-height: 1.6;
+  color: rgba(255,255,255,.65);
+  background: rgba(0,0,0,.15);
+  border-left: 3px solid var(--gold);
+  padding: 10px 14px;
+  border-radius: 0 4px 4px 0;
+  margin-top: 4px;
+}
+
+/* ── Questions body ────────────────────────────────────────────────────── */
+.section-body { padding: 24px 32px 28px; }
+
+.question-block {
+  margin-bottom: 22px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--gray-20);
+}
+.question-block:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+
+.q-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.q-num {
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  font-weight: 500;
+  color: var(--gray-40);
+  background: var(--gray-10);
+  border: 1px solid var(--gray-20);
+  padding: 3px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+.q-text {
+  font-size: .9rem;
+  line-height: 1.6;
+  color: var(--text);
+  flex: 1;
+}
+
+.q-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  padding-left: 48px;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: .65rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 12px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.badge-blocker {
+  background: var(--red-bg);
+  color: var(--red);
+  border: 1px solid rgba(192,57,43,.2);
+}
+.badge-risk {
+  background: var(--amber-bg);
+  color: var(--amber);
+  border: 1px solid rgba(176,125,42,.2);
+}
+
+/* ── Form inputs ───────────────────────────────────────────────────────── */
+.q-input {
+  width: 100%;
+  padding: 10px 14px;
+  font-family: var(--font-body);
+  font-size: .88rem;
+  color: var(--text);
+  background: var(--white);
+  border: 1.5px solid var(--gray-20);
+  border-radius: var(--radius);
+  transition: border-color .2s, box-shadow .2s;
+  resize: vertical;
+  min-height: 80px;
+  line-height: 1.5;
+}
+.q-input:focus {
+  outline: none;
+  border-color: var(--navy-mid);
+  box-shadow: 0 0 0 3px rgba(46,84,128,.12);
+}
+.q-input.blocker-input:focus {
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px rgba(192,57,43,.1);
+}
+
+/* Radio/checkbox groups */
+.q-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 48px;
+}
+.q-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border: 1.5px solid var(--gray-20);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all .15s;
+}
+.q-option:hover { border-color: var(--navy-mid); background: rgba(46,84,128,.03); }
+.q-option input { accent-color: var(--navy); width: 16px; height: 16px; flex-shrink: 0; }
+.q-option-label { font-size: .87rem; color: var(--text); }
+
+/* Conditional sub-question */
+.sub-question {
+  display: none;
+  margin-top: 10px;
+  padding: 14px 16px;
+  background: var(--gray-10);
+  border-radius: var(--radius);
+  border-left: 3px solid var(--navy-mid);
+}
+.sub-question.show { display: block; }
+.sub-label {
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--gray-60);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-bottom: 6px;
+}
+
+/* ── Constancia block (S11) ────────────────────────────────────────────── */
+.constancia-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 4px;
+}
+.constancia-field {
+  background: var(--gray-10);
+  border: 1px solid var(--gray-20);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+}
+.constancia-field.full { grid-column: 1 / -1; }
+.constancia-key {
+  font-size: .65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--gray-60);
+  margin-bottom: 4px;
+}
+.constancia-val {
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--navy);
+}
+.constancia-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--green-bg);
+  color: var(--green);
+  border: 1px solid rgba(30,126,74,.2);
+  font-size: .68rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 12px;
+  margin-top: 12px;
+}
+.cert-block {
+  background: linear-gradient(135deg, var(--navy-deep), var(--navy));
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin-top: 16px;
+  border: 1px solid rgba(200,168,75,.2);
+}
+.cert-block-title {
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.cert-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 8px;
+  align-items: baseline;
+}
+.cert-row:last-child { margin-bottom: 0; }
+.cert-key {
+  font-size: .75rem;
+  color: rgba(255,255,255,.45);
+  min-width: 160px;
+  flex-shrink: 0;
+}
+.cert-val {
+  font-size: .82rem;
+  color: rgba(255,255,255,.9);
+  font-weight: 500;
+}
+
+/* ── Market intelligence section ───────────────────────────────────────── */
+.intel-card {
+  background: linear-gradient(135deg, var(--navy-deep), var(--navy));
+  border: 1px solid rgba(200,168,75,.2);
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+}
+.intel-card-title {
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.intel-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px 16px;
+  align-items: start;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.intel-row:last-child { border-bottom: none; }
+.intel-giro {
+  font-size: .75rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.6);
+  white-space: nowrap;
+}
+.intel-finding {
+  font-size: .8rem;
+  color: rgba(255,255,255,.8);
+  line-height: 1.5;
+}
+.intel-tag {
+  font-size: .65rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+.intel-tag.opp { background: rgba(30,126,74,.25); color: #5FD4A0; }
+.intel-tag.threat { background: rgba(192,57,43,.25); color: #F28B82; }
+.intel-tag.info { background: rgba(200,168,75,.2); color: var(--gold-lt); }
+
+/* ── Navigation buttons ────────────────────────────────────────────────── */
+.nav-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 32px 24px;
+  border-top: 1px solid var(--gray-20);
+  background: var(--gray-10);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: .85rem;
+  font-weight: 600;
+  padding: 10px 22px;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  transition: all .2s;
+  letter-spacing: .02em;
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--gray-60);
+  border: 1.5px solid var(--gray-20);
+}
+.btn-ghost:hover { border-color: var(--gray-40); color: var(--text); }
+.btn-primary {
+  background: var(--navy);
+  color: var(--white);
+}
+.btn-primary:hover { background: var(--navy-mid); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold), var(--gold-lt));
+  color: var(--navy-deep);
+  font-weight: 700;
+}
+.btn-gold:hover { filter: brightness(1.08); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(200,168,75,.3); }
+
+.section-counter {
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  color: var(--gray-40);
+}
+
+/* ── Semáforo / urgency table ──────────────────────────────────────────── */
+.semaforo-table { width: 100%; border-collapse: collapse; }
+.semaforo-table th {
+  background: var(--navy);
+  color: var(--white);
+  font-size: .72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  padding: 10px 14px;
+  text-align: left;
+}
+.semaforo-table td {
+  padding: 12px 14px;
+  font-size: .82rem;
+  border-bottom: 1px solid var(--gray-20);
+  vertical-align: top;
+}
+.semaforo-table tr:last-child td { border-bottom: none; }
+.semaforo-table tr:hover td { background: var(--gray-10); }
+.sem-num {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--red);
+  font-size: .9rem;
+}
+.sem-decision { color: var(--text); line-height: 1.5; }
+.sem-consequence { color: var(--gray-60); font-style: italic; line-height: 1.5; }
+.sem-area {
+  font-weight: 600;
+  color: var(--navy);
+  font-size: .78rem;
+}
+.sem-date input {
+  width: 100px;
+  padding: 4px 8px;
+  font-family: var(--font-mono);
+  font-size: .78rem;
+  border: 1px solid var(--gray-20);
+  border-radius: 4px;
+  text-align: center;
+}
+
+/* ── Final / summary ───────────────────────────────────────────────────── */
+.final-screen {
+  display: none;
+  text-align: center;
+  padding: 60px 32px;
+  background: var(--white);
+  border-radius: 10px;
+  box-shadow: var(--shadow-lg);
+  margin-top: 24px;
+}
+.final-screen.active { display: block; animation: slideIn .4s ease; }
+.final-icon { font-size: 3.5rem; margin-bottom: 20px; }
+.final-title {
+  font-family: var(--font-disp);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 10px;
+}
+.final-sub { font-size: .92rem; color: var(--gray-60); margin-bottom: 32px; line-height: 1.6; }
+.final-actions { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+
+/* ── Disclaimer ─────────────────────────────────────────────────────────── */
+.disclaimer {
+  margin-top: 48px;
+  padding: 20px 24px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--radius);
+  font-size: .72rem;
+  color: rgba(255,255,255,.35);
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .section-head { padding: 22px 20px 18px; }
+  .section-body { padding: 18px 20px 22px; }
+  .nav-row { padding: 14px 20px 18px; }
+  .section-icon { display: none; }
+  .constancia-grid { grid-template-columns: 1fr; }
+  .stats-row { flex-wrap: wrap; }
+  .stat { min-width: 50%; }
+  .cert-row { flex-direction: column; gap: 2px; }
+  .cert-key { min-width: auto; }
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ── Header ── -->
+  <header class="site-header">
+    <div class="brand">
+      <span class="brand-name">Grupo MYA</span>
+      <span class="brand-sub">Due Diligence Corporativo</span>
+    </div>
+    <span class="badge-version">v4.0 · Feb 2026</span>
+  </header>
+
+  <!-- ── Hero ── -->
+  <div class="hero">
+    <span class="hero-eyebrow">Instrumento de diagnóstico</span>
+    <h1>Due Diligence de<br><span>Constitución Empresarial</span></h1>
+    <p class="hero-desc">
+      Este cuestionario reúne la información necesaria para estructurar correctamente
+      el grupo corporativo, sus subsidiarias, domicilio fiscal y presencia digital.
+      Tómelo con calma — sus respuestas son la base del proyecto.
+    </p>
+    <div class="stats-row">
+      <div class="stat"><span class="stat-val">11</span><span class="stat-lbl">Secciones</span></div>
+      <div class="stat"><span class="stat-val">67</span><span class="stat-lbl">Preguntas</span></div>
+      <div class="stat"><span class="stat-val">~40</span><span class="stat-lbl">Minutos</span></div>
+      <div class="stat"><span class="stat-val">100%</span><span class="stat-lbl">Confidencial</span></div>
+    </div>
+  </div>
+
+  <!-- ── Sticky progress ── -->
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress-inner">
+      <span class="progress-label" id="progressLabel">Sección 1/11</span>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill"></div></div>
+      <span class="progress-pct" id="progressPct">0%</span>
+    </div>
+  </div>
+
+  <!-- ── Nav dots ── -->
+  <div class="nav-dots" id="navDots"></div>
+
+  <!-- ════════════════════════════════════════════════════════
+       SECTION 1 — GOBIERNO CORPORATIVO
+  ════════════════════════════════════════════════════════ -->
+  <div class="section-card active" id="sec-1">
+    <div class="section-head">
+      <div class="section-num">Sección 01 / 11</div>
+      <div class="section-title">Gobierno Corporativo y Estructura Accionaria</div>
+      <span class="section-icon">⚖️</span>
+      <div class="section-note">
+        Estas preguntas definen quién controla qué y en qué porcentaje.
+        Sin responderlas el notario no puede redactar los estatutos.
+      </div>
+    </div>
+    <div class="section-body">
+      <!-- Q1 -->
+      <div class="question-block">
+        <div class="q-header">
+          <span class="q-num">01</span>
+          <span class="q-text">¿La Lic. Maricarmen Pérez Ramírez será la única accionista de la holding Grupo MYA, o habrá socios? Liste nombre completo, RFC y porcentaje de cada uno.</span>
+        </div>
+        <div class="q-badges"><span class="badge badge-blocker">🔴 Bloqueante</span></div>
+        <textarea class="q-input blocker-input" id="q1" placeholder="Describa la estructura accionaria completa..." rows="3"></textarea>
+      </div>
+      <!-- Q2 -->
+      <div class="question-block">
+        <div class="q-header">
+          <span class="q-num">02</span>
+          <span class="q-text">¿La estructura de gobierno de la holding será Administrador Único o Consejo de Administración? ¿Quién ocupa ese rol desde el inicio?</span>
+        </div>
+        <div class="q-badges"><span class="badge badge-blocker">🔴 Bloqueante</span></div>
+        <div class="q-options">
+          <label class="q-option">
+            <input type="radio" name="q2" value="admin_unico">
+            <span class="q-option-label">Administrador Único</span>
+          </label>
+          <label class="q-option">
+            <input type="radio" name="q2" value="consejo">
+            <span class="q-option-label">Consejo de Administración</span>
+          </label>
+          <label class="q-option">
+            <input type="radio" name="q2" value="por_definir">
+            <span class="q-option-label">Por definir</span>
+          </label>
+        </div>
+        <div style="padding-left:48px; margin-top:10px;">
+          <textarea class="q-input" id="q2-detail" placeholder="Nombre de quien ocupará el rol desde el inicio..." rows="2"></textarea>
+        </div>
+      </div>
+      <!-- Q3 -->
+      <div class="question-block">
+        <div class="q-header">
+          <span class="q-num">03</span>
+          <span class="q-text">¿Se firmará un Pacto de Accionistas complementario a los estatutos? (Altamente recomendado si hay más de un socio en cualquier entidad del grupo.)</span>
+        </div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <div class="q-options">
+          <label class="q-option"><input type="radio" name="q3" value="si"><span class="q-option-label">Sí, se contempla</span></label>
+          <label class="q-option"><input type="radio" name="q3" value="no"><span class="q-option-label">No, no se contempla</span></label>
+          <label class="q-option"><input type="radio" name="q3" value="evaluar"><span class="q-option-label">A evaluar con asesor</span></label>
+        </div>
+      </div>
+      <!-- Q4 -->
+      <div class="question-block">
+        <div class="q-header">
+          <span class="q-num">04</span>
+          <span class="q-text">¿La holding (Grupo MYA) va a facturar directamente a clientes o únicamente recibirá dividendos de las subsidiarias?</span>
+        </div>
+        <div class="q-badges"><span class="badge badge-blocker">🔴 Bloqueante</span></div>
+        <div class="q-options">
+          <label class="q-option"><input type="radio" name="q4" value="factura_clientes"><span class="q-option-label">Factura directamente a clientes</span></label>
+          <label class="q-option"><input type="radio" name="q4" value="solo_dividendos"><span class="q-option-label">Solo recibe dividendos de subsidiarias</span></label>
+          <label class="q-option"><input type="radio" name="q4" value="combinacion"><span class="q-option-label">Combinación de ambas</span></label>
+          <label class="q-option"><input type="radio" name="q4" value="por_definir"><span class="q-option-label">Por definir</span></label>
+        </div>
+      </div>
+      <!-- Q5 -->
+      <div class="question-block">
+        <div class="q-header">
+          <span class="q-num">05</span>
+          <span class="q-text">¿Se contempla incorporar nuevos socios o inversionistas externos en los próximos 12–24 meses? ¿Hay alguna persona con quien ya exista un acuerdo verbal al respecto?</span>
+        </div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q5" placeholder="Describa cualquier acuerdo verbal o intención..." rows="2"></textarea>
+      </div>
+      <!-- Q6 -->
+      <div class="question-block">
+        <div class="q-header">
+          <span class="q-num">06</span>
+          <span class="q-text">¿Alguna subsidiaria tendrá socios distintos a los de la holding? Si es así, ¿cuál, quién y en qué porcentaje?</span>
+        </div>
+        <div class="q-badges"><span class="badge badge-blocker">🔴 Bloqueante</span></div>
+        <textarea class="q-input blocker-input" id="q6" placeholder="Especifique por subsidiaria..." rows="3"></textarea>
+      </div>
+    </div>
+    <div class="nav-row">
+      <span class="section-counter">Sección 1 de 11</span>
+      <button class="btn btn-primary" onclick="goNext()">Siguiente <span>→</span></button>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════
+       SECTION 2 — SOCIOS Y COLABORADORES
+  ════════════════════════════════════════════════════════ -->
+  <div class="section-card" id="sec-2">
+    <div class="section-head">
+      <div class="section-num">Sección 02 / 11</div>
+      <div class="section-title">Socios, Colaboradores y Roles Internos</div>
+      <span class="section-icon">👥</span>
+      <div class="section-note">
+        La Lic. Maricarmen puede tener tres roles jurídicos simultáneos: accionista de la holding,
+        socia/empleada de la subsidiaria y profesionista independiente. Esto tiene consecuencias en ISR, IMSS y gobierno corporativo.
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">07</span><span class="q-text">¿La Lic. Maricarmen Pérez Ramírez ejercerá como abogada dentro de MYA y Asociados en calidad de socia de la subsidiaria o como empleada/colaboradora?</span></div>
+        <div class="q-badges"><span class="badge badge-blocker">🔴 Bloqueante</span></div>
+        <div class="q-options">
+          <label class="q-option"><input type="radio" name="q7" value="socia"><span class="q-option-label">Socia de la subsidiaria</span></label>
+          <label class="q-option"><input type="radio" name="q7" value="empleada"><span class="q-option-label">Empleada / nómina</span></label>
+          <label class="q-option"><input type="radio" name="q7" value="colaboradora"><span class="q-option-label">Colaboradora (honorarios)</span></label>
+          <label class="q-option"><input type="radio" name="q7" value="combinacion"><span class="q-option-label">Combinación (especificar)</span></label>
+        </div>
+        <div style="padding-left:48px; margin-top:10px;">
+          <textarea class="q-input" id="q7-detail" placeholder="Detalle adicional si aplica..." rows="2"></textarea>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">08</span><span class="q-text">¿El Lic. Fernando A. Bautista Villafañe es socio de MYA y Asociados / FEMAR o es colaborador externo? ¿Tiene participación accionaria contemplada en alguna entidad del grupo?</span></div>
+        <div class="q-badges"><span class="badge badge-blocker">🔴 Bloqueante</span></div>
+        <textarea class="q-input blocker-input" id="q8" placeholder="Describa el rol y si tiene o no participación accionaria..." rows="3"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">09</span><span class="q-text">¿Hay otros profesionistas (arquitectos, asesores, agentes inmobiliarios) que participen actualmente o que se incorporen al grupo y cuyo rol deba definirse?</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q9" placeholder="Liste nombres, perfil y rol contemplado..." rows="3"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">10</span><span class="q-text">¿Existe algún acuerdo —verbal o escrito— previo con cualquier persona sobre participación en el grupo que no esté reflejado en la estructura planeada?</span></div>
+        <div class="q-badges"><span class="badge badge-blocker">🔴 Bloqueante</span></div>
+        <textarea class="q-input blocker-input" id="q10" placeholder="Sea específico. Todo acuerdo verbal con consecuencias jurídicas debe documentarse ahora." rows="3"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">11</span><span class="q-text">Si habrá empleados desde el inicio, ¿se tiene contemplado el registro patronal ante el IMSS? ¿Cuántas personas se incorporarían en la primera etapa?</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q11" placeholder="Número estimado de colaboradores y cronograma..." rows="2"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">12</span><span class="q-text">¿Hay algún profesionista clave cuya salida representaría un riesgo operativo para el grupo y que deba vincularse contractualmente desde el inicio?</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q12" placeholder="Describa perfil y dependencia operativa..." rows="2"></textarea>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goPrev()">← Anterior</button>
+      <span class="section-counter">Sección 2 de 11</span>
+      <button class="btn btn-primary" onclick="goNext()">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════
+       SECTION 3 — OPERACIÓN PREEXISTENTE
+  ════════════════════════════════════════════════════════ -->
+  <div class="section-card" id="sec-3">
+    <div class="section-head">
+      <div class="section-num">Sección 03 / 11</div>
+      <div class="section-title">Operación Informal Preexistente</div>
+      <span class="section-icon">📂</span>
+      <div class="section-note">
+        Si alguna unidad ya opera informalmente, hay contratos, activos y posibles pasivos que deben regularizarse.
+        Los pasivos ocultos son la causa más frecuente de conflictos post-constitución.
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">13</span><span class="q-text">¿Alguna de las unidades de negocio ya tiene clientes activos, contratos firmados o proyectos en ejecución? Especifique cuáles y a nombre de quién están firmados hoy.</span></div>
+        <div class="q-badges"><span class="badge badge-blocker">🔴 Bloqueante</span></div>
+        <textarea class="q-input blocker-input" id="q13" placeholder="Describa contratos activos, nombre del firmante y monto aproximado..." rows="4"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">14</span><span class="q-text">¿MYA Arquitectos tiene obras en curso? ¿Los contratos de obra están firmados a nombre de persona física o de alguna razón social existente?</span></div>
+        <div class="q-badges"><span class="badge badge-blocker">🔴 Bloqueante</span></div>
+        <textarea class="q-input blocker-input" id="q14" placeholder="Obras activas, monto, plazo pendiente, nombre del contratante..." rows="3"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">15</span><span class="q-text">¿MYA Real Estate ha intermediado operaciones de compraventa o arrendamiento? ¿Existen comisiones pendientes de cobrar o pagar?</span></div>
+        <div class="q-badges"><span class="badge badge-blocker">🔴 Bloqueante</span></div>
+        <textarea class="q-input blocker-input" id="q15" placeholder="Operaciones pendientes y montos de comisión..." rows="3"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">16</span><span class="q-text">¿El despacho legal tiene clientes con expedientes activos? ¿A nombre de quién están los poderes notariales y contratos de honorarios vigentes?</span></div>
+        <div class="q-badges"><span class="badge badge-blocker">🔴 Bloqueante</span></div>
+        <textarea class="q-input blocker-input" id="q16" placeholder="Expedientes activos y titularidad de contratos..." rows="3"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">17</span><span class="q-text">¿Hay deudas, créditos, préstamos o compromisos financieros de cualquier tipo que deban regularizarse antes de la constitución?</span></div>
+        <div class="q-badges"><span class="badge badge-blocker">🔴 Bloqueante</span></div>
+        <textarea class="q-input blocker-input" id="q17" placeholder="Deudas, préstamos, compromisos con terceros..." rows="3"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">18</span><span class="q-text">¿Alguna de las personas involucradas tiene deudas fiscales, litigios activos o embargos que pudieran afectar la constitución o la operación del grupo?</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q18" placeholder="Situación fiscal y legal personal de cada integrante clave..." rows="3"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">19</span><span class="q-text">¿Se han emitido facturas (CFDI) a nombre de alguna de las futuras entidades? Si es así, ¿bajo qué RFC?</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q19" placeholder="RFC utilizado, régimen, número aproximado de CFDIs emitidos..." rows="2"></textarea>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goPrev()">← Anterior</button>
+      <span class="section-counter">Sección 3 de 11</span>
+      <button class="btn btn-primary" onclick="goNext()">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════
+       SECTION 4 — CAPITAL SOCIAL Y SAT
+  ════════════════════════════════════════════════════════ -->
+  <div class="section-card" id="sec-4">
+    <div class="section-head">
+      <div class="section-num">Sección 04 / 11</div>
+      <div class="section-title">Capital Social, Situación Fiscal y Obligaciones SAT</div>
+      <span class="section-icon">💰</span>
+      <div class="section-note">
+        El capital social no puede ser simbólico si las subsidiarias van a firmar contratos de alto valor.
+        Las obligaciones SAT deben atenderse desde el día uno de constitución.
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">20</span><span class="q-text">¿Cuál es el capital social inicial proyectado para la holding Grupo MYA? (Mínimo legal SA de CV: $50,000 MXN suscrito, 20% exhibido. Se recomienda un monto mayor para credibilidad contractual en operaciones inmobiliarias.)</span></div>
+        <div class="q-badges"><span class="badge badge-blocker">🔴 Bloqueante</span></div>
+        <textarea class="q-input blocker-input" id="q20" placeholder="Monto en pesos mexicanos y fecha estimada de aportación..." rows="2"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">21</span><span class="q-text">¿Cuál es el capital social inicial proyectado para cada subsidiaria? Especifique por entidad.</span></div>
+        <div class="q-badges"><span class="badge badge-blocker">🔴 Bloqueante</span></div>
+        <textarea class="q-input blocker-input" id="q21" placeholder="MYA y Asociados: $___&#10;MYA Real Estate: $___&#10;MYA Arquitectos: $___&#10;MYA SYSA: $___" rows="5"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">22</span><span class="q-text">¿La Lic. Maricarmen Pérez Ramírez (y demás socios) actualmente tributan como personas físicas? ¿En qué régimen? (RESICO, actividad empresarial, honorarios, asalariado, otro)</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q22" placeholder="Régimen fiscal actual y RFC..." rows="2"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">23</span><span class="q-text">¿Alguno de los socios ya tiene una empresa activa (SA, SC, SAPI u otra figura)? ¿Podría haber conflictos de objeto social o de interés con el nuevo grupo?</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q23" placeholder="Empresas activas, razón social, RFC..." rows="2"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">24</span><span class="q-text">¿Cómo fluirá el dinero entre la holding y las subsidiarias? (dividendos, servicios intragrupo, préstamos, combinación). Esta decisión tiene impacto directo en la carga fiscal.</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q24" placeholder="Modelo de flujo de recursos entre entidades..." rows="3"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">25</span><span class="q-text">¿Cada entidad tendrá su propia cuenta bancaria empresarial desde el inicio? ¿Ya se tiene banco preferido? (Algunas instituciones requieren hasta 30 días para abrir cuentas empresariales.)</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q25" placeholder="Banco preferido, si ya tienen cuenta en ese banco, fecha requerida de apertura..." rows="2"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">26</span><span class="q-text">¿Se tiene contemplado tramitar la e.firma (FIEL) del SAT para cada entidad una vez constituida? ¿Hay un contador o despacho fiscal ya asignado para el grupo?</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q26" placeholder="Nombre del contador o despacho fiscal asignado..." rows="2"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">27</span><span class="q-text">¿Se contempla financiamiento bancario (crédito, línea de capital de trabajo) para alguna subsidiaria en el corto plazo? Esto influye en la figura jurídica y en el capital social mínimo recomendado.</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q27" placeholder="Entidad, monto y plazo de financiamiento contemplado..." rows="2"></textarea>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goPrev()">← Anterior</button>
+      <span class="section-counter">Sección 4 de 11</span>
+      <button class="btn btn-primary" onclick="goNext()">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════
+       SECTION 5 — MARCAS Y PI
+  ════════════════════════════════════════════════════════ -->
+  <div class="section-card" id="sec-5">
+    <div class="section-head">
+      <div class="section-num">Sección 05 / 11</div>
+      <div class="section-title">Marcas, Nombre Comercial y Propiedad Intelectual</div>
+      <span class="section-icon">™️</span>
+      <div class="section-note">
+        Los activos intangibles (nombres, logotipos, dominios) tienen valor comercial y deben ser propiedad
+        de la entidad correcta desde el inicio. Un registro de marca mal asignado es costoso de corregir.
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">28</span><span class="q-text">¿"FEMAR Iuris Consultus" está registrada como marca ante el IMPI? ¿A nombre de quién? ¿Está vigente o venció?</span></div>
+        <div class="q-badges"><span class="badge badge-blocker">🔴 Bloqueante</span></div>
+        <textarea class="q-input blocker-input" id="q28" placeholder="Número de registro IMPI, titular, fecha de vencimiento..." rows="2"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">29</span><span class="q-text">¿El logo de MYA Arquitectos (ya en uso público) tiene registro de marca ante el IMPI? ¿A nombre de quién está el registro o quién lo diseñó?</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q29" placeholder="Estado del registro, titular, diseñador y contrato de cesión si existe..." rows="2"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">30</span><span class="q-text">¿"Grupo MYA" o cualquier variante del nombre está registrada ante el IMPI? ¿En qué clases de Niza?</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q30" placeholder="Clases de Niza relevantes: 36 (seguros/inmobiliaria), 37 (construcción), 45 (servicios legales)..." rows="2"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">31</span><span class="q-text">¿El dominio gpomya.com está registrado a nombre de persona física o de alguna empresa? ¿Quién tiene acceso al panel de administración?</span></div>
+        <div class="q-badges"><span class="badge badge-blocker">🔴 Bloqueante</span></div>
+        <textarea class="q-input blocker-input" id="q31" placeholder="Nombre del titular, proveedor (GoDaddy, Namecheap, etc.), fecha de vencimiento..." rows="2"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">32</span><span class="q-text">¿Existen otros dominios ya registrados (myaarquitectos.com, myarealestate.com, etc.)? ¿A nombre de quién?</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q32" placeholder="Lista de dominios, titular y vencimiento..." rows="2"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">33</span><span class="q-text">¿Las cuentas de correo @gpomya.com están en Google Workspace u otro proveedor? ¿Contratadas a nombre de persona física o empresa? ¿Quién paga la suscripción?</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q33" placeholder="Proveedor, titularidad, método de pago, número de cuentas..." rows="2"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">34</span><span class="q-text">¿Hay fotografías, renders, planos u otro material gráfico que se usará en marketing y cuya autoría o cesión de derechos debe documentarse?</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q34" placeholder="Tipo de material, autor, existe contrato de cesión..." rows="2"></textarea>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goPrev()">← Anterior</button>
+      <span class="section-counter">Sección 5 de 11</span>
+      <button class="btn btn-primary" onclick="goNext()">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════
+       SECTION 6 — OBJETO SOCIAL Y REGULACIÓN
+  ════════════════════════════════════════════════════════ -->
+  <div class="section-card" id="sec-6">
+    <div class="section-head">
+      <div class="section-num">Sección 06 / 11</div>
+      <div class="section-title">Objeto Social y Obligaciones Regulatorias Especiales</div>
+      <span class="section-icon">📋</span>
+      <div class="section-note">
+        Algunas actividades del grupo activan obligaciones regulatorias específicas que van más allá de
+        la constitución notarial. Ignorarlas genera sanciones y responsabilidad personal para los administradores.
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">35</span><span class="q-text">MYA Real Estate: ¿intermediará en compraventa de inmuebles? Esto activa obligaciones de presentación de avisos bajo la Ley LFPIORPI (Antilavado). ¿Está consciente de estas obligaciones y de las sanciones por incumplimiento (hasta $9.4 MDP)?</span></div>
+        <div class="q-badges"><span class="badge badge-blocker">🔴 Bloqueante</span></div>
+        <div class="q-options">
+          <label class="q-option"><input type="radio" name="q35" value="si_conoce"><span class="q-option-label">Sí, conozco las obligaciones LFPIORPI</span></label>
+          <label class="q-option"><input type="radio" name="q35" value="no_conoce"><span class="q-option-label">No, requiero información sobre esto</span></label>
+          <label class="q-option"><input type="radio" name="q35" value="parcial"><span class="q-option-label">Conozco parcialmente, requiero aclaración</span></label>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">36</span><span class="q-text">MYA Real Estate contempla emitir pólizas jurídicas de arrendamiento y administración de inmuebles. ¿Bajo qué figura se respaldan las pólizas? ¿La administración de inmuebles incluirá cobro de rentas a nombre del propietario? (Esto puede activar obligaciones de IVA adicionales y figura de mandatario ante el SAT.)</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q36" placeholder="Aseguradora o despacho que respalda las pólizas, modelo de cobro de rentas..." rows="3"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">37</span><span class="q-text">¿Los abogados del grupo tienen cédula profesional vigente ante la Dirección General de Profesiones? ¿Existe alguna queja o procedimiento disciplinario activo?</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q37" placeholder="Cédulas, números y estado ante DGP..." rows="2"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">38</span><span class="q-text">MYA Arquitectos: ¿los proyectos implican Dirección Responsable de Obra (DRO)? ¿Quién tiene la cédula de DRO en el equipo? ¿Se tienen contempladas las licencias de construcción en CDMX?</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q38" placeholder="Nombre del DRO, número de cédula, estado de licencias activas..." rows="2"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">39</span><span class="q-text">¿Cuál es el giro exacto de MYA SYSA Consultoría? Este campo es BLOQUEANTE para redactar el objeto social. Sin definirlo, la subsidiaria no puede constituirse ni operar.</span></div>
+        <div class="q-badges"><span class="badge badge-blocker">🔴 Bloqueante</span></div>
+        <textarea class="q-input blocker-input" id="q39" placeholder="Describa las actividades concretas que realizará MYA SYSA..." rows="3"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">40</span><span class="q-text">¿Alguna actividad del grupo requiere permiso de la CNBV, CONDUSEF, PROFECO, SEDATU u otra autoridad federal o local?</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q40" placeholder="Actividades que puedan requerir permisos adicionales..." rows="2"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">41</span><span class="q-text">¿El despacho legal manejará activos de clientes en cuentas propias (depósitos en garantía, honorarios anticipados)? Esto tiene implicaciones de LFPIORPI y responsabilidad profesional.</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q41" placeholder="Política de manejo de recursos de clientes..." rows="2"></textarea>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goPrev()">← Anterior</button>
+      <span class="section-counter">Sección 6 de 11</span>
+      <button class="btn btn-primary" onclick="goNext()">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════
+       SECTION 7 — PRESENCIA DIGITAL Y LFPDPPP
+  ════════════════════════════════════════════════════════ -->
+  <div class="section-card" id="sec-7">
+    <div class="section-head">
+      <div class="section-num">Sección 07 / 11</div>
+      <div class="section-title">Presencia Digital y Cumplimiento LFPDPPP</div>
+      <span class="section-icon">🌐</span>
+      <div class="section-note">
+        Estas decisiones afectan el costo y tiempo de desarrollo web. El cumplimiento de la LFPDPPP
+        aplica desde el primer día que el sitio recopile datos, incluyendo formularios de contacto.
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">42</span><span class="q-text">¿La decisión sobre la marca FEMAR está tomada? Opciones: (a) se integra completamente a MYA y Asociados, (b) se mantiene como submarca especializada en penal, (c) opera como marca independiente. Esta decisión bloquea el diseño de los sitios.</span></div>
+        <div class="q-badges"><span class="badge badge-blocker">🔴 Bloqueante</span></div>
+        <div class="q-options">
+          <label class="q-option"><input type="radio" name="q42" value="integra"><span class="q-option-label">(a) Se integra completamente a MYA y Asociados</span></label>
+          <label class="q-option"><input type="radio" name="q42" value="submarca"><span class="q-option-label">(b) Se mantiene como submarca especializada en penal</span></label>
+          <label class="q-option"><input type="radio" name="q42" value="independiente"><span class="q-option-label">(c) Opera como marca independiente con cross-referral</span></label>
+          <label class="q-option"><input type="radio" name="q42" value="pendiente"><span class="q-option-label">Pendiente de decisión</span></label>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">43</span><span class="q-text">¿Se quiere un sitio web por subsidiaria, un sitio paraguas (gpomya.com) con secciones por división, o una combinación? ¿Se contempla un sitio institucional de la holding?</span></div>
+        <div class="q-badges"><span class="badge badge-blocker">🔴 Bloqueante</span></div>
+        <div class="q-options">
+          <label class="q-option"><input type="radio" name="q43" value="por_subsidiaria"><span class="q-option-label">Un sitio por subsidiaria</span></label>
+          <label class="q-option"><input type="radio" name="q43" value="paraguas"><span class="q-option-label">Sitio paraguas (gpomya.com) con secciones por división</span></label>
+          <label class="q-option"><input type="radio" name="q43" value="combinacion"><span class="q-option-label">Combinación</span></label>
+        </div>
+        <div style="padding-left:48px; margin-top:10px;">
+          <textarea class="q-input" id="q43-detail" placeholder="Detalle adicional sobre la arquitectura digital preferida..." rows="2"></textarea>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">44</span><span class="q-text">¿MYA Real Estate requiere un portal con buscador de propiedades propio (con fichas, filtros, mapas) o publicará en portales externos como Lamudi, Inmuebles24 o Vivanuncios?</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <div class="q-options">
+          <label class="q-option"><input type="radio" name="q44" value="propio"><span class="q-option-label">Portal propio con buscador</span></label>
+          <label class="q-option"><input type="radio" name="q44" value="externos"><span class="q-option-label">Solo portales externos</span></label>
+          <label class="q-option"><input type="radio" name="q44" value="ambos"><span class="q-option-label">Combinación (propio + externos)</span></label>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">45</span><span class="q-text">¿Quién del equipo será responsable de actualizar y mantener el contenido de los sitios web una vez publicados? ¿Tiene experiencia con CMS como WordPress o Webflow?</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q45" placeholder="Nombre, rol y experiencia con CMS..." rows="2"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">46</span><span class="q-text">¿Existe presupuesto definido para el desarrollo web? (Esto determina la tecnología y el alcance: un portal de propiedades propio cuesta 3–5x más que un sitio informativo básico.)</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q46" placeholder="Presupuesto estimado en pesos o USD..." rows="2"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">47</span><span class="q-text">¿Hay herramientas de gestión de clientes (CRM) ya en uso? ¿Se contempla integración con WhatsApp Business, agenda en línea o firma electrónica?</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q47" placeholder="CRM actual, integraciones deseadas..." rows="2"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">48</span><span class="q-text">¿Se ha designado ya al "Responsable del Tratamiento de Datos Personales" para el aviso de privacidad de cada entidad, conforme al Art. 3 LFPDPPP? (Puede ser la misma persona para todo el grupo.)</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q48" placeholder="Nombre del responsable designado, o indicar 'pendiente'..." rows="2"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">49</span><span class="q-text">¿Los sitios web recopilarán datos de menores de edad? ¿O datos sensibles (salud, biometría, orientación sexual)? Esto activa un nivel superior de obligaciones bajo LFPDPPP.</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <div class="q-options">
+          <label class="q-option"><input type="radio" name="q49" value="no"><span class="q-option-label">No, solo datos de adultos y no sensibles</span></label>
+          <label class="q-option"><input type="radio" name="q49" value="menores"><span class="q-option-label">Sí, podrían incluirse datos de menores</span></label>
+          <label class="q-option"><input type="radio" name="q49" value="sensibles"><span class="q-option-label">Sí, se procesarán datos sensibles</span></label>
+          <label class="q-option"><input type="radio" name="q49" value="no_se"><span class="q-option-label">No lo sé aún</span></label>
+        </div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goPrev()">← Anterior</button>
+      <span class="section-counter">Sección 7 de 11</span>
+      <button class="btn btn-primary" onclick="goNext()">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════
+       SECTION 8 — DOMICILIO Y OFICINA
+  ════════════════════════════════════════════════════════ -->
+  <div class="section-card" id="sec-8">
+    <div class="section-head">
+      <div class="section-num">Sección 08 / 11</div>
+      <div class="section-title">Domicilio Físico, Oficina y Domicilio Fiscal</div>
+      <span class="section-icon">🏢</span>
+      <div class="section-note">
+        La decisión de rentar una oficina en el norte de CDMX NO es logística: es una decisión corporativa y fiscal.
+        ¿Quién firma el contrato? ¿Cuál será el domicilio fiscal ante el SAT? Estas preguntas deben responderse
+        ANTES de firmar cualquier contrato de arrendamiento.
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">50</span><span class="q-text">¿Ya se tiene una zona específica en la zona norte de CDMX identificada para la oficina? (Ej: Lindavista, Gustavo A. Madero, Tlalnepantla, Azcapotzalco, Echegaray.) La zona afecta el mercado objetivo y el SEO de los sitios web.</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q50" placeholder="Zona preferida y razones de la elección..." rows="2"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">51</span><span class="q-text">¿Quién firmará el contrato de arrendamiento de la oficina: la Lic. Maricarmen como persona física, o la holding Grupo MYA ya constituida? (Si firma antes de constituirse, el contrato queda a nombre personal y puede generar complicaciones para deducir fiscalmente.)</span></div>
+        <div class="q-badges"><span class="badge badge-blocker">🔴 Bloqueante</span></div>
+        <div class="q-options">
+          <label class="q-option"><input type="radio" name="q51" value="persona_fisica"><span class="q-option-label">Persona física (Lic. Maricarmen)</span></label>
+          <label class="q-option"><input type="radio" name="q51" value="holding"><span class="q-option-label">La holding Grupo MYA (una vez constituida)</span></label>
+          <label class="q-option"><input type="radio" name="q51" value="esperar"><span class="q-option-label">Esperaré a que esté constituida la holding para firmar</span></label>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">52</span><span class="q-text">¿La oficina albergará a todas las subsidiarias bajo un mismo espacio compartido, o se contempla un espacio diferenciado por unidad?</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <div class="q-options">
+          <label class="q-option"><input type="radio" name="q52" value="compartido"><span class="q-option-label">Un espacio compartido para todo el grupo</span></label>
+          <label class="q-option"><input type="radio" name="q52" value="diferenciado"><span class="q-option-label">Espacios diferenciados por subsidiaria</span></label>
+          <label class="q-option"><input type="radio" name="q52" value="fase"><span class="q-option-label">Compartido ahora, diferenciado en una fase posterior</span></label>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">53</span><span class="q-text">¿El domicilio de la oficina será el domicilio fiscal registrado ante el SAT para todas las entidades, o se usará un domicilio diferente para alguna?</span></div>
+        <div class="q-badges"><span class="badge badge-blocker">🔴 Bloqueante</span></div>
+        <textarea class="q-input blocker-input" id="q53" placeholder="Domicilio fiscal planeado por entidad si difiere del de la oficina..." rows="2"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">54</span><span class="q-text">¿Se contemplan modalidades de Work From Home o domicilios virtuales para alguna subsidiaria? Esto tiene implicaciones en el registro ante el SAT y en la validez del domicilio fiscal.</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q54" placeholder="Subsidiaria, modalidad y cómo se manejaría el domicilio fiscal..." rows="2"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">55</span><span class="q-text">¿El arrendador exigirá aval para el contrato de arrendamiento? ¿Se tiene identificado quién sería el aval y si está en posibilidad de serlo?</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q55" placeholder="Nombre del aval potencial y situación fiscal/crediticia aproximada..." rows="2"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">56</span><span class="q-text">¿El espacio contemplado requiere adecuaciones o remodelación antes de su uso? ¿Quién absorbe ese costo: la arrendataria o el arrendador?</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q56" placeholder="Tipo de adecuaciones necesarias, costo estimado, responsable..." rows="2"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">57</span><span class="q-text">¿Se contempla sala de juntas para atención a clientes? ¿Área de archivo físico para expedientes legales? (Los expedientes del despacho son datos personales y requieren medidas de seguridad física conforme a LFPDPPP.)</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q57" placeholder="Necesidades de espacio: sala de juntas, archivo, recepción, etc." rows="2"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">58</span><span class="q-text">¿Existe presupuesto definido para la renta mensual? ¿Y para el depósito? La zona norte de CDMX tiene rangos de $8,000 a $40,000+ MXN/mes según ubicación y m².</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q58" placeholder="Rango de renta mensual aceptable, m² requeridos, presupuesto de depósito..." rows="2"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">59</span><span class="q-text">¿Se contempla que MYA Arquitectos diseñe o supervise el acondicionamiento de la oficina? Esto crea una oportunidad de sinergia interna, pero debe documentarse como servicio entre subsidiarias.</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <div class="q-options">
+          <label class="q-option"><input type="radio" name="q59" value="si"><span class="q-option-label">Sí, MYA Arquitectos participaría</span></label>
+          <label class="q-option"><input type="radio" name="q59" value="no"><span class="q-option-label">No, se contratará a terceros</span></label>
+          <label class="q-option"><input type="radio" name="q59" value="evaluar"><span class="q-option-label">A evaluar</span></label>
+        </div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goPrev()">← Anterior</button>
+      <span class="section-counter">Sección 8 de 11</span>
+      <button class="btn btn-primary" onclick="goNext()">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════
+       SECTION 9 — SEMÁFORO DE DECISIONES URGENTES
+  ════════════════════════════════════════════════════════ -->
+  <div class="section-card" id="sec-9">
+    <div class="section-head">
+      <div class="section-num">Sección 09 / 11</div>
+      <div class="section-title">Semáforo de Decisiones Urgentes</div>
+      <span class="section-icon">🚦</span>
+      <div class="section-note">
+        Sin estas 5 decisiones el proyecto no puede avanzar. Coloque una fecha límite para cada una.
+      </div>
+    </div>
+    <div class="section-body">
+      <div style="overflow-x:auto;">
+        <table class="semaforo-table">
+          <thead>
+            <tr>
+              <th style="width:36px;">#</th>
+              <th>Decisión pendiente</th>
+              <th>Consecuencia de no decidir</th>
+              <th>Afecta a</th>
+              <th style="width:120px;">Fecha límite</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="sem-num">1</span></td>
+              <td class="sem-decision">¿Quiénes son los accionistas de la holding y en qué porcentajes?</td>
+              <td class="sem-consequence">El notario no puede redactar estatutos. Toda la constitución se detiene.</td>
+              <td class="sem-area">Constitución legal</td>
+              <td class="sem-date"><input type="date" id="sem1-date"></td>
+            </tr>
+            <tr>
+              <td><span class="sem-num">2</span></td>
+              <td class="sem-decision">¿Cuál es el giro exacto de MYA SYSA?</td>
+              <td class="sem-consequence">No se puede redactar el objeto social de esa subsidiaria.</td>
+              <td class="sem-area">Constitución · Fase 3 web</td>
+              <td class="sem-date"><input type="date" id="sem2-date"></td>
+            </tr>
+            <tr>
+              <td><span class="sem-num">3</span></td>
+              <td class="sem-decision">¿Quién firma el contrato de arrendamiento de la oficina?</td>
+              <td class="sem-consequence">Riesgo de que el contrato quede en nombre personal, no deducible para la empresa.</td>
+              <td class="sem-area">Oficina · Fiscal SAT</td>
+              <td class="sem-date"><input type="date" id="sem3-date"></td>
+            </tr>
+            <tr>
+              <td><span class="sem-num">4</span></td>
+              <td class="sem-decision">Decisión sobre la marca FEMAR (integrar / submarca / independiente)</td>
+              <td class="sem-consequence">Bloquea Fase 2 y por cascada todo el desarrollo web.</td>
+              <td class="sem-area">Marca · Sitios web</td>
+              <td class="sem-date"><input type="date" id="sem4-date"></td>
+            </tr>
+            <tr>
+              <td><span class="sem-num">5</span></td>
+              <td class="sem-decision">¿Fernando Bautista es socio o colaborador de MYA y Asociados?</td>
+              <td class="sem-consequence">Afecta la estructura accionaria de la subsidiaria legal y su gobierno.</td>
+              <td class="sem-area">Constitución legal</td>
+              <td class="sem-date"><input type="date" id="sem5-date"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goPrev()">← Anterior</button>
+      <span class="section-counter">Sección 9 de 11</span>
+      <button class="btn btn-primary" onclick="goNext()">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════
+       SECTION 10 — ANÁLISIS DE MERCADO
+  ════════════════════════════════════════════════════════ -->
+  <div class="section-card" id="sec-10">
+    <div class="section-head">
+      <div class="section-num">Sección 10 / 11</div>
+      <div class="section-title">Análisis de Mercado y Competencia — Zona Norte CDMX</div>
+      <span class="section-icon">🔍</span>
+      <div class="section-note">
+        Basado en inteligencia de mercado real (Google Maps, feb. 2026). Hallazgos clave para posicionar
+        Grupo MYA antes de invertir en constitución, oficina y presencia digital.
+      </div>
+    </div>
+    <div class="section-body">
+      <!-- Intel cards -->
+      <div class="intel-card">
+        <div class="intel-card-title">📊 Hallazgos clave — mercado real Lindavista / GAM</div>
+        <div class="intel-row">
+          <span class="intel-giro">🏠 Inmobiliaria</span>
+          <span class="intel-finding"><strong>fihcasa</strong> domina con 654 reseñas ⭐4.9. MYA Real Estate debe diferenciarse con la sinergia legal + arquitectura que fihcasa no puede ofrecer sola.</span>
+          <span class="intel-tag threat">Amenaza</span>
+        </div>
+        <div class="intel-row">
+          <span class="intel-giro">🏠 Inmobiliaria</span>
+          <span class="intel-finding"><strong>Plusvalía Inmobiliaria</strong> tiene reseñas negativas explícitas (inflexibilidad, mal servicio). Sus clientes insatisfechos son prospectos naturales para MYA Real Estate.</span>
+          <span class="intel-tag opp">Oportunidad</span>
+        </div>
+        <div class="intel-row">
+          <span class="intel-giro">⚖️ Legal</span>
+          <span class="intel-finding">Mercado legal atomizado en abogados independientes sin marca corporativa. Ninguno tiene presencia digital profesional integrada. MYA y Asociados entra con ventaja desde el día uno.</span>
+          <span class="intel-tag opp">Oportunidad</span>
+        </div>
+        <div class="intel-row">
+          <span class="intel-giro">🏗️ Arquitectura</span>
+          <span class="intel-finding">DOMOR (único despacho formal encontrado en zona norte) tiene rating 3.0. MYA Arquitectos entraría como el referente sin competencia relevante establecida.</span>
+          <span class="intel-tag opp">Oportunidad</span>
+        </div>
+        <div class="intel-row">
+          <span class="intel-giro">📝 Notarías</span>
+          <span class="intel-finding">Las 4 notarías del área tienen ratings de 2.3–3.3 con reviews devastadores. MYA y Asociados puede posicionarse como "el despacho que te acompaña y te protege del proceso notarial."</span>
+          <span class="intel-tag opp">Oportunidad clave</span>
+        </div>
+      </div>
+
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">60</span><span class="q-text">¿Conoce a fihcasa como competidor dominante en Lindavista (654 reseñas, ⭐4.9)? ¿Cuál es la propuesta de diferenciación de MYA Real Estate frente a él?</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q60" placeholder="Describa la propuesta diferenciadora de MYA Real Estate..." rows="3"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">61</span><span class="q-text">¿El despacho de abogados tiene en la mira la zona norte como mercado objetivo o considera cubrir otras zonas? La fragmentación del mercado legal en GAM/Lindavista es una oportunidad real.</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q61" placeholder="Zona objetivo del despacho legal y estrategia de captación..." rows="2"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">62</span><span class="q-text">Las notarías de la zona norte tienen reputación muy baja en atención al cliente. ¿Ha contemplado posicionar a MYA y Asociados como intermediario confiable que acompaña al cliente durante los trámites notariales?</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <div class="q-options">
+          <label class="q-option"><input type="radio" name="q62" value="si"><span class="q-option-label">Sí, ya lo tenía contemplado</span></label>
+          <label class="q-option"><input type="radio" name="q62" value="nuevo"><span class="q-option-label">Es un enfoque nuevo que me interesa explorar</span></label>
+          <label class="q-option"><input type="radio" name="q62" value="no"><span class="q-option-label">No es parte de mi modelo de servicio</span></label>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">63</span><span class="q-text">¿MYA Arquitectos tiene proyectos de referencia realizados en la zona norte de CDMX que puedan usarse como portafolio local? La ausencia de competencia arquitectónica formal en la zona es una ventaja competitiva inmediata.</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q63" placeholder="Proyectos realizados en zona norte, tipo de obra, año, posibilidad de fotografiar..." rows="3"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">64</span><span class="q-text">¿Se ha contemplado el modelo de sinergia cruzada entre subsidiarias? ¿Existe un protocolo de referidos internos para que un cliente de Real Estate sea atendido también por el despacho legal y por arquitectos?</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <div class="q-options">
+          <label class="q-option"><input type="radio" name="q64" value="si"><span class="q-option-label">Sí, ya existe un modelo de referidos internos</span></label>
+          <label class="q-option"><input type="radio" name="q64" value="informal"><span class="q-option-label">Sí, pero de forma informal</span></label>
+          <label class="q-option"><input type="radio" name="q64" value="no"><span class="q-option-label">No, cada área opera de forma independiente</span></label>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">65</span><span class="q-text">¿Existe alguna alianza estratégica contemplada con actores del ecosistema local: notarios, aseguradoras para pólizas, proveedores de materiales, desarrolladoras inmobiliarias en la zona?</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <textarea class="q-input" id="q65" placeholder="Alianzas actuales o en negociación..." rows="2"></textarea>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">66</span><span class="q-text">¿Se ha evaluado si la oficina a rentar podría funcionar también como sala de juntas para terceros (modelo boutique)? El coworking de calidad en la zona es limitado — podría generar un ingreso complementario.</span></div>
+        <div class="q-badges"><span class="badge badge-risk">🟡 Riesgo</span></div>
+        <div class="q-options">
+          <label class="q-option"><input type="radio" name="q66" value="si_interesa"><span class="q-option-label">Sí, es una opción que me interesa</span></label>
+          <label class="q-option"><input type="radio" name="q66" value="no"><span class="q-option-label">No, la oficina será solo para uso interno</span></label>
+          <label class="q-option"><input type="radio" name="q66" value="evaluar"><span class="q-option-label">A evaluar según el espacio disponible</span></label>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="q-header"><span class="q-num">67</span><span class="q-text">¿Cuál es la zona exacta de la ciudad donde operan actualmente los clientes del despacho legal y de MYA Arquitectos? Si la base de clientes existente no está en el norte, la decisión de abrir oficina ahí debe justificarse con una estrategia de captación nueva.</span></div>
+        <div class="q-badges"><span class="badge badge-blocker">🔴 Bloqueante</span></div>
+        <textarea class="q-input blocker-input" id="q67" placeholder="Zona geográfica de los clientes actuales del despacho y de arquitectos..." rows="3"></textarea>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goPrev()">← Anterior</button>
+      <span class="section-counter">Sección 10 de 11</span>
+      <button class="btn btn-primary" onclick="goNext()">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════
+       SECTION 11 — CONSTANCIA PROFESIONAL
+  ════════════════════════════════════════════════════════ -->
+  <div class="section-card" id="sec-11">
+    <div class="section-head">
+      <div class="section-num">Sección 11 / 11</div>
+      <div class="section-title">Constancia de Situación Profesional</div>
+      <span class="section-icon">🎓</span>
+      <div class="section-note">
+        Esta sección documenta las credenciales de los integrantes clave del grupo. La información de la
+        Lic. Maricarmen Pérez Ramírez ya está precargada. Complete los datos de los demás profesionistas.
+      </div>
+    </div>
+    <div class="section-body">
+
+      <!-- Perfil Maricarmen -->
+      <div style="margin-bottom: 28px;">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--navy-mid));display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">👩‍⚖️</div>
+          <div>
+            <div style="font-weight:700;color:var(--navy);font-size:1rem;">Lic. Maricarmen Pérez Ramírez</div>
+            <div style="font-size:.75rem;color:var(--gray-60);">Datos precargados de constancia oficial</div>
+          </div>
+          <span class="constancia-badge" style="margin-top:0;margin-left:auto;">✓ Verificado</span>
+        </div>
+
+        <div class="constancia-grid">
+          <div class="constancia-field full">
+            <div class="constancia-key">Profesión</div>
+            <div class="constancia-val">Licenciatura en Derecho</div>
+          </div>
+          <div class="constancia-field">
+            <div class="constancia-key">Institución Educativa</div>
+            <div class="constancia-val">Universidad Abierta y a Distancia de México (UnADM)</div>
+          </div>
+          <div class="constancia-field">
+            <div class="constancia-key">Fecha de Titulación</div>
+            <div class="constancia-val">20 de diciembre de 2023</div>
+          </div>
+          <div class="constancia-field">
+            <div class="constancia-key">Cédula Profesional</div>
+            <div class="constancia-val" style="font-family:var(--font-mono);">14684210</div>
+          </div>
+          <div class="constancia-field">
+            <div class="constancia-key">Fecha de Expedición</div>
+            <div class="constancia-val">21 de enero de 2025</div>
+          </div>
+          <div class="constancia-field">
+            <div class="constancia-key">No. Certificación (Colegio)</div>
+            <div class="constancia-val" style="font-family:var(--font-mono);">589725</div>
+          </div>
+        </div>
+
+        <div class="cert-block">
+          <div class="cert-block-title">Certificación CONOCER — Competencias Transversales</div>
+          <div class="cert-row">
+            <span class="cert-key">Estándar de Competencia</span>
+            <span class="cert-val">EC0217.01 — Impartición de Cursos de Formación del Capital Humano de Manera Presencial Grupal</span>
+          </div>
+          <div class="cert-row">
+            <span class="cert-key">Organismo Certificador</span>
+            <span class="cert-val">CONOCER</span>
+          </div>
+          <div class="cert-row">
+            <span class="cert-key">Entidad Evaluadora</span>
+            <span class="cert-val">Capacitación Humanidad y Servicio a la Salud, S.C. (CHSS)</span>
+          </div>
+          <div class="cert-row">
+            <span class="cert-key">Vigencia</span>
+            <span class="cert-val" style="color:var(--gold-lt);font-weight:600;">Indefinida</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Campos adicionales -->
+      <div style="border-top:2px solid var(--gray-20); padding-top:24px;">
+        <p style="font-size:.85rem; color:var(--gray-60); margin-bottom:16px;">
+          Complete los datos profesionales de los demás integrantes clave del grupo (pueden agregarse después):
+        </p>
+        <textarea class="q-input" id="q-otros-prof" placeholder="Nombre, profesión, cédula y certificaciones de:&#10;— Lic. Fernando A. Bautista Villafañe&#10;— Arquitecto(s) responsables de MYA Arquitectos&#10;— Otros profesionistas clave" rows="6"></textarea>
+      </div>
+
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goPrev()">← Anterior</button>
+      <span class="section-counter">Sección 11 de 11</span>
+      <button class="btn btn-gold" onclick="submitForm()">Enviar Due Diligence ✓</button>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════
+       PANTALLA FINAL
+  ════════════════════════════════════════════════════════ -->
+  <div class="final-screen" id="finalScreen">
+    <div class="final-icon">✅</div>
+    <h2 class="final-title">Due Diligence Completado</h2>
+    <p class="final-sub">
+      Sus respuestas han sido registradas.<br>
+      Recibirá confirmación a la brevedad. El análisis se entregará en un máximo de 5 días hábiles.
+    </p>
+    <div class="final-actions">
+      <button class="btn btn-primary" onclick="downloadResponses()">⬇ Descargar mis respuestas</button>
+      <button class="btn btn-ghost" onclick="startOver()">Comenzar de nuevo</button>
+    </div>
+    <div style="margin-top:32px; padding:20px; background:var(--gray-10); border-radius:8px; text-align:left;">
+      <div style="font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--gray-60); margin-bottom:10px;">Próximos pasos</div>
+      <div style="font-size:.85rem; color:var(--text-lt); line-height:1.7;">
+        1. Revisión de respuestas por el consultor asignado (1–2 días hábiles)<br>
+        2. Identificación de puntos de clarificación (si aplica)<br>
+        3. Entrega de diagnóstico preliminar y propuesta de fase de constitución<br>
+        4. Sesión de kick-off con el equipo del grupo
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Footer disclaimer ── -->
+  <div class="disclaimer">
+    Este instrumento contiene información confidencial. Su distribución queda restringida al círculo de
+    socios y asesores autorizados de Grupo MYA. Los datos recopilados serán tratados conforme a la
+    Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP). v4.0 · Feb 2026
+  </div>
+
+</div><!-- /.app -->
+
+<script>
+/* ── State ─────────────────────────────────────────────────────────────── */
+const TOTAL = 11;
+let current = 1;
+
+/* ── Build nav dots ─────────────────────────────────────────────────────── */
+const dotsEl = document.getElementById('navDots');
+for (let i = 1; i <= TOTAL; i++) {
+  const d = document.createElement('button');
+  d.className = 'nav-dot' + (i === 1 ? ' active' : '');
+  d.title = `Sección ${i}`;
+  d.onclick = () => goTo(i);
+  d.id = `dot-${i}`;
+  dotsEl.appendChild(d);
+}
+
+/* ── Navigation ─────────────────────────────────────────────────────────── */
+function goTo(n) {
+  if (n < 1 || n > TOTAL) return;
+  // Hide current
+  document.getElementById(`sec-${current}`)?.classList.remove('active');
+  document.getElementById(`dot-${current}`)?.classList.remove('active');
+  document.getElementById(`dot-${current}`)?.classList.add('done');
+  // Show new
+  current = n;
+  document.getElementById(`sec-${current}`)?.classList.add('active');
+  document.getElementById(`dot-${current}`)?.classList.add('active');
+  document.getElementById(`dot-${current}`)?.classList.remove('done');
+  // Scroll to top of progress bar
+  document.getElementById('progressWrap')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  updateProgress();
+}
+function goNext() { if (current < TOTAL) goTo(current + 1); }
+function goPrev() { if (current > 1)     goTo(current - 1); }
+
+function updateProgress() {
+  const pct = Math.round(((current - 1) / TOTAL) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '%';
+  document.getElementById('progressLabel').textContent = `Sección ${current}/${TOTAL}`;
+}
+updateProgress();
+
+/* ── Submit ─────────────────────────────────────────────────────────────── */
+function submitForm() {
+  document.getElementById(`sec-${current}`).classList.remove('active');
+  document.getElementById('finalScreen').classList.add('active');
+  document.getElementById('progressFill').style.width = '100%';
+  document.getElementById('progressPct').textContent = '100%';
+  document.getElementById('progressLabel').textContent = 'Completado';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Persist to localStorage
+  saveToStorage();
+}
+
+function startOver() {
+  document.getElementById('finalScreen').classList.remove('active');
+  current = 1;
+  document.querySelectorAll('.section-card').forEach(c => c.classList.remove('active'));
+  document.getElementById('sec-1').classList.add('active');
+  document.querySelectorAll('.nav-dot').forEach((d, i) => {
+    d.classList.remove('active', 'done');
+    if (i === 0) d.classList.add('active');
+  });
+  updateProgress();
+}
+
+/* ── Persist & download ─────────────────────────────────────────────────── */
+function gatherResponses() {
+  const res = {};
+  document.querySelectorAll('textarea[id^="q"], input[id^="q"]').forEach(el => {
+    if (el.value) res[el.id] = el.value;
+  });
+  document.querySelectorAll('input[type="radio"]:checked').forEach(el => {
+    res[el.name] = el.value;
+  });
+  document.querySelectorAll('input[id^="sem"]').forEach(el => {
+    if (el.value) res[el.id] = el.value;
+  });
+  return res;
+}
+
+function saveToStorage() {
+  try {
+    localStorage.setItem('grupomya_dd_v4', JSON.stringify({ ts: new Date().toISOString(), data: gatherResponses() }));
+  } catch(e) {}
+}
+
+function downloadResponses() {
+  const data = gatherResponses();
+  const lines = ['DUE DILIGENCE CORPORATIVO — GRUPO MYA', 'v4.0 · ' + new Date().toLocaleDateString('es-MX'), '='.repeat(60), ''];
+  const labels = {
+    q1:'01. Estructura accionaria',q2_detail:'02. Administrador (detalle)',q3:'03. Pacto de accionistas',
+    q4:'04. Facturación holding',q5:'05. Nuevos socios/inversionistas',q6:'06. Socios por subsidiaria',
+    q7_detail:'07. Rol de Maricarmen (detalle)',q8:'08. Fernando Bautista',q9:'09. Otros profesionistas',
+    q10:'10. Acuerdos previos',q11:'11. Empleados / IMSS',q12:'12. Profesionistas clave',
+    q13:'13. Contratos activos',q14:'14. Obras en curso (MYA Arq)',q15:'15. Ops. RE pendientes',
+    q16:'16. Expedientes legales activos',q17:'17. Deudas / compromisos',q18:'18. Situación fiscal/legal socios',
+    q19:'19. CFDIs emitidos',q20:'20. Capital social holding',q21:'21. Capital por subsidiaria',
+    q22:'22. Régimen fiscal actual',q23:'23. Empresas activas de socios',q24:'24. Flujo de recursos',
+    q25:'25. Cuentas bancarias',q26:'26. Contador / e.firma',q27:'27. Financiamiento bancario',
+    q28:'28. Marca FEMAR (IMPI)',q29:'29. Logo MYA Arquitectos',q30:'30. Marca Grupo MYA',
+    q31:'31. Dominio gpomya.com',q32:'32. Otros dominios',q33:'33. Google Workspace',q34:'34. Material gráfico',
+    q36:'36. Pólizas y administración RE',q37:'37. Cédulas abogados',q38:'38. DRO y licencias arq.',
+    q39:'39. Giro MYA SYSA',q40:'40. Permisos regulatorios',q41:'41. Activos de clientes',
+    q43_detail:'43. Arquitectura digital (detalle)',q45:'45. Responsable web/CMS',q46:'46. Presupuesto web',
+    q47:'47. CRM e integraciones',q48:'48. Responsable LFPDPPP',q50:'50. Zona de oficina',
+    q53:'53. Domicilio fiscal',q54:'54. Work From Home / domicilio virtual',q55:'55. Aval arrendamiento',
+    q56:'56. Adecuaciones oficina',q57:'57. Sala de juntas / archivo',q58:'58. Presupuesto renta',
+    q60:'60. Diferenciación vs fihcasa',q61:'61. Zona mercado despacho',q63:'63. Portafolio arq. zona norte',
+    q65:'65. Alianzas estratégicas',q67:'67. Zona clientes actuales',
+    'q-otros-prof':'Otros profesionistas del grupo',
+    sem1_date:'Sem 1 — Accionistas (fecha)',sem2_date:'Sem 2 — MYA SYSA (fecha)',
+    sem3_date:'Sem 3 — Contrato oficina (fecha)',sem4_date:'Sem 4 — FEMAR (fecha)',sem5_date:'Sem 5 — Fernando (fecha)',
+  };
+  const radioLabels = {
+    q2:'02. Tipo gobierno holding',q3:'03. Pacto accionistas',q4:'04. Facturación',q7:'07. Rol Maricarmen',
+    q35:'35. Conocimiento LFPIORPI',q42:'42. Decisión FEMAR',q43:'43. Arquitectura web',q44:'44. Portal RE',
+    q49:'49. Datos sensibles web',q51:'51. Firmante arrendamiento',q52:'52. Distribución oficina',
+    q59:'59. MYA Arq en oficina',q62:'62. Posicionamiento notarías',q64:'64. Sinergia referidos',q66:'66. Modelo coworking',
+  };
+  Object.entries(radioLabels).forEach(([k,lbl]) => { if (data[k]) lines.push(`${lbl}: ${data[k]}`); });
+  Object.entries(labels).forEach(([k,lbl]) => { if (data[k]) lines.push(`${lbl}:\n${data[k]}`); });
+  const blob = new Blob([lines.join('\n')], {type:'text/plain;charset=utf-8'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = 'DueDiligence_GrupoMYA_v4.txt'; a.click();
+}
+
+// Restore on load
+try {
+  const saved = JSON.parse(localStorage.getItem('grupomya_dd_v4') || '{}');
+  if (saved.data) {
+    Object.entries(saved.data).forEach(([k,v]) => {
+      const el = document.getElementById(k);
+      if (el) el.value = v;
+      else {
+        const r = document.querySelector(`input[name="${k}"][value="${v}"]`);
+        if (r) r.checked = true;
+      }
+    });
+  }
+} catch(e) {}
+</script>
+
+</body>
+</html>
