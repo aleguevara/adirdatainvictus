@@ -656,60 +656,126 @@
             <div class="section-header">
                 <span class="section-number">03</span>
                 <h2 class="section-title"
-                    data-es="Portal de Clientes"
-                    data-en="Client Portal">Portal de Clientes</h2>
+                    data-es="Gestión de Due Diligence"
+                    data-en="Due Diligence Management">Gestión de Due Diligence</h2>
                 <p class="section-subtitle"
-                   data-es="Cada cliente recibe un instrumento de diagnóstico personalizado. Si usted recibió un enlace de due diligence de nuestra parte, accédalo aquí."
-                   data-en="Each client receives a personalized diagnostic instrument. If you received a due diligence link from us, access it here.">
-                    Cada cliente recibe un instrumento de diagnóstico personalizado. Si usted recibió un enlace de due diligence de nuestra parte, accédalo aquí.
+                   data-es="Cada proyecto inicia con un instrumento de diagnóstico personalizado. No existe un cuestionario genérico: cada cliente recibe un due diligence construido sobre su industria, su estructura y su mercado específico."
+                   data-en="Every engagement begins with a personalized diagnostic instrument. There is no generic questionnaire: each client receives a due diligence built around their industry, structure, and specific market.">
+                    Cada proyecto inicia con un instrumento de diagnóstico personalizado. No existe un cuestionario genérico: cada cliente recibe un due diligence construido sobre su industria, su estructura y su mercado específico.
                 </p>
             </div>
 
-            <div class="portal-card">
+            <!-- Cómo funciona -->
+            <div style="display:grid; grid-template-columns: repeat(3,1fr); gap:1.5rem; margin-bottom:3rem;">
+
+                <div class="portal-card" style="margin:0;">
+                    <div class="portal-card-header" style="padding:1.25rem 1.5rem;">
+                        <span class="portal-lock-icon" style="font-size:1.2rem;">📋</span>
+                        <div class="portal-header-text">
+                            <h3 style="font-size:1rem;"
+                                data-es="Diagnóstico Inicial"
+                                data-en="Initial Assessment">Diagnóstico Inicial</h3>
+                            <p data-es="Semana 1 de cada proyecto"
+                               data-en="Week 1 of every project">Semana 1 de cada proyecto</p>
+                        </div>
+                    </div>
+                    <div class="portal-card-body" style="padding:1.25rem 1.5rem;">
+                        <p class="portal-desc" style="font-size:0.85rem; margin-bottom:0;"
+                           data-es="Cuestionario estructurado que captura la situación actual: contratos preexistentes, certificaciones vigentes, brechas regulatorias y decisiones pendientes. La base de toda propuesta."
+                           data-en="Structured questionnaire capturing the current situation: pre-existing contracts, active certifications, regulatory gaps, and pending decisions. The foundation of every proposal.">
+                            Cuestionario estructurado que captura la situación actual: contratos preexistentes, certificaciones vigentes, brechas regulatorias y decisiones pendientes. La base de toda propuesta.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="portal-card" style="margin:0;">
+                    <div class="portal-card-header" style="padding:1.25rem 1.5rem;">
+                        <span class="portal-lock-icon" style="font-size:1.2rem;">🔍</span>
+                        <div class="portal-header-text">
+                            <h3 style="font-size:1rem;"
+                                data-es="Inteligencia de Mercado"
+                                data-en="Market Intelligence">Inteligencia de Mercado</h3>
+                            <p data-es="Incluido en cada instrumento"
+                               data-en="Included in every instrument">Incluido en cada instrumento</p>
+                        </div>
+                    </div>
+                    <div class="portal-card-body" style="padding:1.25rem 1.5rem;">
+                        <p class="portal-desc" style="font-size:0.85rem; margin-bottom:0;"
+                           data-es="Cada due diligence incorpora análisis real del entorno competitivo del cliente: zona geográfica, industria, actores dominantes y brechas de posicionamiento. No es investigación genérica."
+                           data-en="Every due diligence incorporates real analysis of the client's competitive environment: geographic area, industry, dominant players, and positioning gaps. Not generic research.">
+                            Cada due diligence incorpora análisis real del entorno competitivo del cliente: zona geográfica, industria, actores dominantes y brechas de posicionamiento. No es investigación genérica.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="portal-card" style="margin:0;">
+                    <div class="portal-card-header" style="padding:1.25rem 1.5rem;">
+                        <span class="portal-lock-icon" style="font-size:1.2rem;">⚡</span>
+                        <div class="portal-header-text">
+                            <h3 style="font-size:1rem;"
+                                data-es="Propuesta en 3 Días"
+                                data-en="Proposal in 3 Days">Propuesta en 3 Días</h3>
+                            <p data-es="Post-recepción del cuestionario"
+                               data-en="After receiving the questionnaire">Post-recepción del cuestionario</p>
+                        </div>
+                    </div>
+                    <div class="portal-card-body" style="padding:1.25rem 1.5rem;">
+                        <p class="portal-desc" style="font-size:0.85rem; margin-bottom:0;"
+                           data-es="Con las respuestas del due diligence, la propuesta llega con alcance exacto, cronograma semanal y condiciones económicas. Sin estimados genéricos: el precio refleja el trabajo real."
+                           data-en="With the due diligence responses, the proposal arrives with exact scope, weekly schedule, and economic terms. No generic estimates: the price reflects the real work.">
+                            Con las respuestas del due diligence, la propuesta llega con alcance exacto, cronograma semanal y condiciones económicas. Sin estimados genéricos: el precio refleja el trabajo real.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Instrumento técnico -->
+            <div class="portal-card" style="max-width:700px; margin:0 auto;">
                 <div class="portal-card-header">
                     <span class="portal-lock-icon">🔐</span>
                     <div class="portal-header-text">
-                        <h3 data-es="Due Diligence Corporativo — Grupo MYA"
-                            data-en="Corporate Due Diligence — Grupo MYA">Due Diligence Corporativo — Grupo MYA</h3>
-                        <p data-es="Instrumento de diagnóstico personalizado · 11 secciones · 67 preguntas"
-                           data-en="Personalized diagnostic instrument · 11 sections · 67 questions">Instrumento de diagnóstico personalizado · 11 secciones · 67 preguntas</p>
+                        <h3 data-es="¿Recibió un enlace de due diligence?"
+                            data-en="Did you receive a due diligence link?">¿Recibió un enlace de due diligence?</h3>
+                        <p data-es="Acceda a su instrumento personalizado aquí"
+                           data-en="Access your personalized instrument here">Acceda a su instrumento personalizado aquí</p>
                     </div>
                 </div>
                 <div class="portal-card-body">
                     <p class="portal-desc"
-                       data-es="Este cuestionario captura la información necesaria para estructurar correctamente la holding Grupo MYA y sus cuatro subsidiarias. Incluye inteligencia de mercado real de la zona norte de CDMX y análisis de obligaciones regulatorias especiales por giro. Sus respuestas son la base del proyecto — tómelo con calma."
-                       data-en="This questionnaire captures the information needed to correctly structure the Grupo MYA holding and its four subsidiaries. It includes real market intelligence from north CDMX and analysis of special regulatory obligations by business type. Your answers are the foundation of the project — take your time.">
-                        Este cuestionario captura la información necesaria para estructurar correctamente la holding Grupo MYA y sus cuatro subsidiarias. Incluye inteligencia de mercado real de la zona norte de CDMX y análisis de obligaciones regulatorias especiales por giro. Sus respuestas son la base del proyecto — tómelo con calma.
+                       data-es="Si ya sostuvo una conversación inicial con nosotros, habrá recibido por correo el enlace a su due diligence. Cada instrumento está construido específicamente para su empresa — no encontrará aquí un formulario público genérico."
+                       data-en="If you've already had an initial conversation with us, you will have received the link to your due diligence by email. Every instrument is built specifically for your company — you will not find a generic public form here.">
+                        Si ya sostuvo una conversación inicial con nosotros, habrá recibido por correo el enlace a su due diligence. Cada instrumento está construido específicamente para su empresa — no encontrará aquí un formulario público genérico.
                     </p>
                     <div class="portal-features">
+                        <span class="portal-feature"
+                              data-es="Personalizado por industria y estructura"
+                              data-en="Personalized by industry and structure">Personalizado por industria y estructura</span>
                         <span class="portal-feature"
                               data-es="Guarda el progreso automáticamente"
                               data-en="Auto-saves your progress">Guarda el progreso automáticamente</span>
                         <span class="portal-feature"
-                              data-es="Preguntas con indicador BLOQUEANTE"
-                              data-en="Questions with BLOCKER indicator">Preguntas con indicador BLOQUEANTE</span>
+                              data-es="Inteligencia de mercado incorporada"
+                              data-en="Market intelligence included">Inteligencia de mercado incorporada</span>
                         <span class="portal-feature"
                               data-es="Descarga sus respuestas al finalizar"
                               data-en="Download your answers when done">Descarga sus respuestas al finalizar</span>
                         <span class="portal-feature"
-                              data-es="Análisis de competencia zona norte CDMX"
-                              data-en="North CDMX competitive analysis">Análisis de competencia zona norte CDMX</span>
-                        <span class="portal-feature"
-                              data-es="11 secciones · ~40 minutos"
-                              data-en="11 sections · ~40 minutes">11 secciones · ~40 minutos</span>
+                              data-es="Indicadores BLOQUEANTE visibles"
+                              data-en="BLOCKER indicators visible">Indicadores BLOQUEANTE visibles</span>
                         <span class="portal-feature"
                               data-es="100% confidencial"
                               data-en="100% confidential">100% confidencial</span>
                     </div>
-                    <a href="grupo-mya/index.html" class="portal-btn"
-                       data-es="Acceder al Due Diligence →"
-                       data-en="Access Due Diligence →">
-                        Acceder al Due Diligence <span class="portal-btn-arrow">→</span>
+                    <a href="#contacto" class="portal-btn"
+                       data-es="Solicitar Mi Due Diligence →"
+                       data-en="Request My Due Diligence →">
+                        Solicitar Mi Due Diligence <span class="portal-btn-arrow">→</span>
                     </a>
                     <p class="portal-note"
-                       data-es="La propuesta de servicios detallada se entregará en 3 días hábiles una vez recibido el cuestionario completado."
-                       data-en="The detailed service proposal will be delivered within 3 business days of receiving the completed questionnaire.">
-                        La propuesta de servicios detallada se entregará en 3 días hábiles una vez recibido el cuestionario completado.
+                       data-es="¿Aún no ha iniciado conversación con nosotros? Use el botón de arriba para agendar un diagnóstico inicial de 30 minutos."
+                       data-en="Haven't started a conversation with us yet? Use the button above to schedule a 30-minute initial assessment.">
+                        ¿Aún no ha iniciado conversación con nosotros? Use el botón de arriba para agendar un diagnóstico inicial de 30 minutos.
                     </p>
                 </div>
             </div>
